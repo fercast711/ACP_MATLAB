@@ -13,7 +13,12 @@ matrix_standardized = (matrix_df - mean_matrix)./std_matrix;
 [n, m] = size(matrix_standardized);
 matrix_cov = ((matrix_standardized')*(matrix_standardized)) / (n-1);
 %% Paso 3: Calcular y ordenar (de mayor a menor) los vectores y valores propios de la matriz
+[vectorEig, diagValuesEig] = eig(matrix_cov);
+valuesEig = diag(diagValuesEig);
+[valuesEigSort, idx] = sort(valuesEig, "descend");
+vectorEigSort = vectorEig(:, idx);
 %% Paso 4: Considerando los valores y vectores propios construir una matriz
+matrix_v = vectorEigSort;
 %% Paso 5: Calcular la matriz de componentes principales
 %% Paso 6: Calculo de la matriz de calidades de individuos
 %% Paso 7: Calculo la matriz de coordenada de las variables 
