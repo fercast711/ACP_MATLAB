@@ -20,7 +20,21 @@ vectorEigSort = vectorEig(:, idx);
 %% Paso 4: Considerando los valores y vectores propios construir una matriz
 matrix_v = vectorEigSort;
 %% Paso 5: Calcular la matriz de componentes principales
+matrix_components = matrix_standardized * matrix_v;
 %% Paso 6: Calculo de la matriz de calidades de individuos
+matrix_components_squared = matrix_components.^2;
+matrix_quality = zeros(n,m);
+for i= 1:n
+    sum_components = sum(matrix_standardized(i,:).^2);
+    for r=1:m
+        matrix_quality(i,r) = matrix_components_squared(i,r) / sum_components;
+    end
+end
 %% Paso 7: Calculo la matriz de coordenada de las variables 
 %% Paso 8: Calcular la matriz de calidades de las variables
 %% Paso 9: Calcular el vector de inercias de los ejes
+matrix_i = zeros(1,m);
+for i=1:m
+    matrix_i(1,i) = (100*valuesEigSort(i,1))/m;
+end
+disp(matrix_i)
